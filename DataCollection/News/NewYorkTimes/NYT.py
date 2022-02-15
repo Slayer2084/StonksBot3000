@@ -53,7 +53,7 @@ class NYTSpider(scrapy.Spider):
                     }
                 }
             })
-            yield scrapy.Request(url.format(query, 0), callback=self.parse)
+            yield scrapy.Request(url, method="POST", body=payload, headers=headers)
 
     def parse(self, response):
         data = {
