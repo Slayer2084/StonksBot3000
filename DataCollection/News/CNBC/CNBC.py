@@ -29,15 +29,13 @@ class CNBCSpider(scrapy.Spider):
             if int(current_page) == 1:
                 for i in range(0, int(total_pages)*100, 100):
                     print(response.url.replace("endindex=(.*?)&batchsize", str(i)))
-                    yield scrapy.Request(url=response.url.replace("endindex=(.*?)&batchsize", str(i)), callback=self.parse2)
+                    yield scrapy.Request(url=response.urljoin(str(i)))
 
-    def parse2(self, response):
-        print(".")
         for result in response.json()["results"]:
             if result["cn:type"] != "cnbcvideo":
-                yield scrapy.Request(result["cn:liveURL"], callback=self.parse3)
+                yield scrapy.Request(result["cn:liveURL"], callback=self.parse_articles)
 
-    def parse3(self, response):
+    def parse_articles(self, response):
         yield {
             'Title': response.css(".ArticleHeader-headline ::text").get(),
             'Category': response.css(".ArticleHeader-eyebrow ::text").get(),
