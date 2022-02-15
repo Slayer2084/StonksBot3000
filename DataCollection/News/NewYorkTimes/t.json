@@ -1,0 +1,448 @@
+{
+    "data": {
+        "search": {
+            "__typename": "LegacySearchResult",
+            "hits": {
+                "__typename": "LegacySearchHitsConnection",
+                "totalCount": 942169,
+                "pageInfo": {
+                    "hasNextPage": true,
+                    "endCursor": "YXJyYXljb25uZWN0aW9uOjIx",
+                    "__typename": "PageInfo",
+                    "hasPreviousPage": false,
+                    "startCursor": "YXJyYXljb25uZWN0aW9uOjIw"
+                },
+                "metadata": {
+                    "spotlights": [
+                        {
+                            "headline": "Times Topics: <b>Kellogg Company</b>",
+                            "url": "https://www.nytimes.com/topic/company/kellogg-company",
+                            "summary": "News about the Kellogg Company, including commentary, financial data and archival articles published in The New York Times.",
+                            "thumbnailUrl": null,
+                            "__typename": "SearchSpotlight"
+                        }
+                    ],
+                    "facets": {
+                        "sections": [
+                            {
+                                "assetCount": 816246,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzliNTFlYzY1LTUzNGItNTRjMi05NDgzLWIyY2M5YTQwYmJmYg==",
+                                    "uri": "nyt://section/9b51ec65-534b-54c2-9483-b2cc9a40bbfb",
+                                    "name": "archives",
+                                    "displayName": "Archives",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 21907,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzM5NDgwMzc0LTY2ZDMtNTYwMy05Y2UxLTU4Y2ZhMTI5ODhlMg==",
+                                    "uri": "nyt://section/39480374-66d3-5603-9ce1-58cfa12988e2",
+                                    "name": "nyregion",
+                                    "displayName": "New York",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 17254,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uL2EzNGQzZDZjLWM3N2YtNTkzMS1iOTUxLTI0MWI0ZTI4NjgxYw==",
+                                    "uri": "nyt://section/a34d3d6c-c77f-5931-b951-241b4e28681c",
+                                    "name": "us",
+                                    "displayName": "U.S.",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 17214,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzA0MTViMmIwLTUxM2EtNWU3OC04MGRhLTIxYWI3NzBjYjc1Mw==",
+                                    "uri": "nyt://section/0415b2b0-513a-5e78-80da-21ab770cb753",
+                                    "name": "business",
+                                    "displayName": "Business",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 10082,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzcwZTg2NWI2LWNjNzAtNTE4MS04NGM5LTgzNjhiM2E1YzM0Yg==",
+                                    "uri": "nyt://section/70e865b6-cc70-5181-84c9-8368b3a5c34b",
+                                    "name": "world",
+                                    "displayName": "World",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 10012,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzZlNmVlMjkyLWI0YmQtNTAwNi1hNjE5LTljZWFiMDM1MjRmMg==",
+                                    "uri": "nyt://section/6e6ee292-b4bd-5006-a619-9ceab03524f2",
+                                    "name": "arts",
+                                    "displayName": "Arts",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 8065,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uL2Q3YTcxMTg1LWFhNjAtNTYzNS1iY2UwLTVmYWI3NmM3YzI5Nw==",
+                                    "uri": "nyt://section/d7a71185-aa60-5635-bce0-5fab76c7c297",
+                                    "name": "opinion",
+                                    "displayName": "Opinion",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 4899,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzQzODE0MTFiLTY3MGYtNTQ1OS04Mjc3LWIxODE0ODVhMTllYw==",
+                                    "uri": "nyt://section/4381411b-670f-5459-8277-b181485a19ec",
+                                    "name": "sports",
+                                    "displayName": "Sports",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 4536,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzU1MGY3NWUyLWZjMzctNWQ1Yy05ZGQxLWM2NjVhYzIyMWI0OQ==",
+                                    "uri": "nyt://section/550f75e2-fc37-5d5c-9dd1-c665ac221b49",
+                                    "name": "books",
+                                    "displayName": "Books",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            },
+                            {
+                                "assetCount": 4211,
+                                "node": {
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzE0NmUyYzQ1LTY1ODYtNTllZi1iYzIzLTkwZTg4ZmUyY2YwYQ==",
+                                    "uri": "nyt://section/146e2c45-6586-59ef-bc23-90e88fe2cf0a",
+                                    "name": "style",
+                                    "displayName": "Style",
+                                    "__typename": "Section"
+                                },
+                                "__typename": "SearchFacetSection"
+                            }
+                        ],
+                        "types": [
+                            {
+                                "assetCount": 939848,
+                                "assetType": "article",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 1705,
+                                "assetType": "interactivegraphics",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 382,
+                                "assetType": "video",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 142,
+                                "assetType": "imageslideshow",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 34,
+                                "assetType": "paidpost",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 28,
+                                "assetType": "wirecutterarticle",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 23,
+                                "assetType": "audio",
+                                "__typename": "SearchFacetType"
+                            },
+                            {
+                                "assetCount": 7,
+                                "assetType": "recipe",
+                                "__typename": "SearchFacetType"
+                            }
+                        ],
+                        "__typename": "SearchFacets"
+                    },
+                    "__typename": "SearchMetadata"
+                },
+                "edges": [
+                    {
+                        "node": {
+                            "__typename": "BodegaResult",
+                            "node": {
+                                "id": "QXJ0aWNsZTpueXQ6Ly9hcnRpY2xlLzQ3OTg5YmI2LThiNTgtNWZmNS05NDI5LTQ5ZGFlMmYxMDYyMw==",
+                                "url": "https://www.nytimes.com/2022/02/09/nyregion/hochul-mask-mandate-ny.html",
+                                "__typename": "Article",
+                                "uri": "nyt://article/47989bb6-8b58-5ff5-9429-49dae2f10623",
+                                "promotionalMedia": {
+                                    "id": "SW1hZ2U6bnl0Oi8vaW1hZ2UvMTU5N2FmMWItY2MxZC01MDdiLTlkYzctYjRjNDIwYTRlMjk4",
+                                    "caption": {
+                                        "text": "Businesses in New York have been required to check patrons for proof of vaccination or require masks.",
+                                        "__typename": "TextOnlyDocumentBlock"
+                                    },
+                                    "crops": [
+                                        {
+                                            "name": "THREE_BY_TWO",
+                                            "renditions": [
+                                                {
+                                                    "width": 190,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-thumbWide.jpg",
+                                                    "name": "thumbWide",
+                                                    "height": 126,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 75,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-videoThumb.jpg",
+                                                    "name": "videoThumb",
+                                                    "height": 50,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 768,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-videoLarge.jpg",
+                                                    "name": "videoLarge",
+                                                    "height": 507,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 210,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-mediumThreeByTwo210.jpg",
+                                                    "name": "mediumThreeByTwo210",
+                                                    "height": 140,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 225,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-mediumThreeByTwo225.jpg",
+                                                    "name": "mediumThreeByTwo225",
+                                                    "height": 150,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 440,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-mediumThreeByTwo440.jpg",
+                                                    "name": "mediumThreeByTwo440",
+                                                    "height": 293,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 252,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-mediumThreeByTwo252.jpg",
+                                                    "name": "mediumThreeByTwo252",
+                                                    "height": 168,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 378,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-mediumThreeByTwo378.jpg",
+                                                    "name": "mediumThreeByTwo378",
+                                                    "height": 252,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 5490,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-threeByTwoLargeAt2X.jpg",
+                                                    "name": "threeByTwoLargeAt2X",
+                                                    "height": 3661,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 1500,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-threeByTwoMediumAt2X.jpg",
+                                                    "name": "threeByTwoMediumAt2X",
+                                                    "height": 1000,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 600,
+                                                    "url": "https://static01.nyt.com/images/2022/02/09/nyregion/09nyhochul1/09nyhochul1-threeByTwoSmallAt2X.jpg",
+                                                    "name": "threeByTwoSmallAt2X",
+                                                    "height": 400,
+                                                    "__typename": "ImageRendition"
+                                                }
+                                            ],
+                                            "__typename": "ImageCrop"
+                                        }
+                                    ],
+                                    "__typename": "Image"
+                                },
+                                "lastModified": "2022-02-10T17:04:23.908Z",
+                                "lastMajorModification": "2022-02-09T20:44:50.000Z",
+                                "firstPublished": "2022-02-09T10:00:15.000Z",
+                                "section": {
+                                    "displayName": "New York",
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzM5NDgwMzc0LTY2ZDMtNTYwMy05Y2UxLTU4Y2ZhMTI5ODhlMg==",
+                                    "__typename": "Section"
+                                },
+                                "subsection": null,
+                                "promotionalHeadline": "As Hochul Lifts Mask Mandate, Focus Shifts to Schools",
+                                "bylines": [
+                                    {
+                                        "renderedRepresentation": "By Luis Ferré-Sadurní",
+                                        "__typename": "Byline"
+                                    }
+                                ],
+                                "creativeWorkHeadline": {
+                                    "default": "As Hochul Lifts Mask Mandate, Focus Shifts to Schools",
+                                    "__typename": "CreativeWorkHeadline"
+                                },
+                                "creativeWorkSummary": "Gov. Kathy Hochul is ending the mandate in businesses and workplaces, but leaving the requirement for masks in schools in place, at least for now.",
+                                "printInformation": {
+                                    "publicationDate": "2022-02-10T05:00:00.000Z",
+                                    "section": "A",
+                                    "page": "17",
+                                    "headline": "As Indoor Mask Rules Are Eased in New York, Focus Shifts to Schools",
+                                    "__typename": "PrintInformation"
+                                }
+                            }
+                        },
+                        "__typename": "LegacySearchHitsEdge"
+                    },
+                    {
+                        "node": {
+                            "__typename": "BodegaResult",
+                            "node": {
+                                "id": "VmlkZW86bnl0Oi8vdmlkZW8vNWZhNDEwZTEtNWU3My01YmY3LWE2N2EtNGZmMzc0OTlkMmMy",
+                                "url": "https://www.nytimes.com/video/nyregion/100000008196106/school-mask-mandate-new-jersey.html",
+                                "__typename": "Video",
+                                "uri": "nyt://video/5fa410e1-5e73-5bf7-a67a-4ff37499d2c2",
+                                "promotionalMedia": {
+                                    "id": "SW1hZ2U6bnl0Oi8vaW1hZ2UvYzBlZjA2N2ItNjRiOS01YWY5LWI4YjQtNTUyODA4NzRmYWI2",
+                                    "caption": {
+                                        "text": "At Christa McAuliffe School in Jersey City last year. Starting next month, New Jersey will no longer require students and school employees to wear masks.",
+                                        "__typename": "TextOnlyDocumentBlock"
+                                    },
+                                    "crops": [
+                                        {
+                                            "name": "THREE_BY_TWO",
+                                            "renditions": [
+                                                {
+                                                    "width": 190,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-thumbWide.jpg",
+                                                    "name": "thumbWide",
+                                                    "height": 126,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 75,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-videoThumb.jpg",
+                                                    "name": "videoThumb",
+                                                    "height": 50,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 768,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-videoLarge.jpg",
+                                                    "name": "videoLarge",
+                                                    "height": 507,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 210,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-mediumThreeByTwo210.jpg",
+                                                    "name": "mediumThreeByTwo210",
+                                                    "height": 140,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 225,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-mediumThreeByTwo225.jpg",
+                                                    "name": "mediumThreeByTwo225",
+                                                    "height": 150,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 440,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-mediumThreeByTwo440.jpg",
+                                                    "name": "mediumThreeByTwo440",
+                                                    "height": 293,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 252,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-mediumThreeByTwo252.jpg",
+                                                    "name": "mediumThreeByTwo252",
+                                                    "height": 168,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 378,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-mediumThreeByTwo378.jpg",
+                                                    "name": "mediumThreeByTwo378",
+                                                    "height": 252,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 5450,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-threeByTwoLargeAt2X.jpg",
+                                                    "name": "threeByTwoLargeAt2X",
+                                                    "height": 3633,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 1500,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-threeByTwoMediumAt2X.jpg",
+                                                    "name": "threeByTwoMediumAt2X",
+                                                    "height": 1000,
+                                                    "__typename": "ImageRendition"
+                                                },
+                                                {
+                                                    "width": 600,
+                                                    "url": "https://static01.nyt.com/images/2022/02/08/world/08virus-briefing-mandates-03/merlin_187080861_4f922c03-d314-419d-91bf-1fa355c2345d-threeByTwoSmallAt2X.jpg",
+                                                    "name": "threeByTwoSmallAt2X",
+                                                    "height": 400,
+                                                    "__typename": "ImageRendition"
+                                                }
+                                            ],
+                                            "__typename": "ImageCrop"
+                                        }
+                                    ],
+                                    "__typename": "Image"
+                                },
+                                "lastModified": "2022-02-08T21:23:21.413Z",
+                                "lastMajorModification": "2022-02-08T21:23:21.413Z",
+                                "firstPublished": "2022-02-07T21:23:53.000Z",
+                                "section": {
+                                    "displayName": "New York",
+                                    "id": "U2VjdGlvbjpueXQ6Ly9zZWN0aW9uLzM5NDgwMzc0LTY2ZDMtNTYwMy05Y2UxLTU4Y2ZhMTI5ODhlMg==",
+                                    "__typename": "Section"
+                                },
+                                "subsection": null,
+                                "promotionalHeadline": "New Jersey to End Statewide School Mask Mandate in March",
+                                "bylines": [
+                                    {
+                                        "renderedRepresentation": "By Reuters",
+                                        "__typename": "Byline"
+                                    }
+                                ],
+                                "creativeWorkHeadline": {
+                                    "default": "New Jersey to End Statewide School Mask Mandate in March",
+                                    "__typename": "CreativeWorkHeadline"
+                                },
+                                "creativeWorkSummary": "Gov. Philip D. Murphy of New Jersey announced that the state would no longer require students and schools employees to wear masks starting the second week of March."
+                            }
+                        },
+                        "__typename": "LegacySearchHitsEdge"
+                    }
+                ]
+            }
+        }
+    }
+}

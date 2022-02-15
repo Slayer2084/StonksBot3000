@@ -22,7 +22,8 @@ class CNBCSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        queries = ['b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        queries = ['b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+                   'v', 'w', 'x', 'y', 'z']
         for query in queries:
             yield scrapy.Request(url.format(query, 0), callback=self.parse)
 
