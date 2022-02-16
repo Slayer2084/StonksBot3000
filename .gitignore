@@ -4,3 +4,4 @@ venv
 Lib
 Scripts
 pyvenv.cfg
+*Creds.py
