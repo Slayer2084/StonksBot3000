@@ -11,14 +11,12 @@ from DataCollection.News.NewYorkTimes.Archive import NYTArchive
 #   Get CNBCArchive                                                                                                    #
 
 cnbc_archiver = CNBCArchive()
-cnbc_archiver.scrape()
-CNBC_Archive = cnbc_archiver.get_data()
+CNBC_Archive = cnbc_archiver.get_data(rerun=True)
 
 #   Get NYTArchive                                                                                                     #
 
 nyt_archiver = NYTArchive()
-nyt_archiver.scrape()
-NYT_Archive = nyt_archiver.get_data()
+NYT_Archive = nyt_archiver.get_data(rerun=True)
 
 #   Get ArchivedStockData                                                                                              #
 
