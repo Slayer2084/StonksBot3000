@@ -8,11 +8,11 @@ class CNBCStreamer:
     def __init__(self):
         self.list = []
 
-    def get_new_data(self, max_pages):
+    def get_new_data(self, date):
         self.list = []
         dispatcher.connect(self.catch_item, signal=signals.item_passed)
         crawler = CrawlerProcess()
-        crawler.crawl(CNBCRecentSpider, max_pages=max_pages)
+        crawler.crawl(CNBCRecentSpider, date)
         crawler.start()
         return self.list
 

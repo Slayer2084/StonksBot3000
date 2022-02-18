@@ -1,7 +1,11 @@
+import datetime
+
 import scrapy
 import scraper_helper as sh
 import re
 from parse_article import parse_article
+import time
+import ciso8601
 
 url = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}%22%20%22%20&endindex={}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats%7C&facetedvalue=!Press%20Release%7C&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23,3bfbe40caee7443e,626fdfcd96444f28"
 url_stream = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}&endindex={}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats%7C&facetedvalue=!Press%20Release%7C&sort=date&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23,3bfbe40caee7443e,626fdfcd96444f28"
@@ -34,8 +38,9 @@ class CNBCSpider(scrapy.Spider):
 
         if total_pages and current_page:
             if int(current_page) == 1:
-                for i in range(100, (int(total_pages)+1)*100, 100):
-                    yield scrapy.Request(url=url.format(re.search(r'query=(.*?)%22', response.url).group(1), i), callback=self.parse)
+                for i in range(100, (int(total_pages) + 1) * 100, 100):
+                    yield scrapy.Request(url=url.format(re.search(r'query=(.*?)%22', response.url).group(1), i),
+                                         callback=self.parse)
 
         for result in response.json()["results"]:
             if result["brand"] == "cnbc":
@@ -44,8 +49,8 @@ class CNBCSpider(scrapy.Spider):
 
 
 class CNBCRecentSpider(scrapy.Spider):
-    def __init__(self, max_pages=1, **kwargs):
-        self.max_pages = max_pages
+    def __init__(self, date, **kwargs):
+        self.date = date
         super().__init__(**kwargs)
 
     name = 'CNBCRecent'
@@ -68,17 +73,19 @@ class CNBCRecentSpider(scrapy.Spider):
 
     def parse(self, response):
         current_page = response.json()["metadata"]["pagerequested"]
+        last_date = time.mktime(ciso8601.parse_datetime(response.json()["results"][-1]["datePublished"]).timetuple())
 
         if current_page:
-            if int(current_page) == 1:
-                for i in range(100, self.max_pages*100, 100):
-                    yield scrapy.Request(url=url_stream.format(re.search(r'query=(.*?)&', response.url).group(1), i),
-                                         callback=self.parse)
+            if last_date > self.date:
+                yield scrapy.Request(
+                    url=url_stream.format(re.search(r'query=(.*?)&', response.url).group(1), current_page + 1),
+                    callback=self.parse)
 
         for result in response.json()["results"]:
             if result["brand"] == "cnbc":
                 if result["cn:type"] != "cnbcvideo":
-                    yield scrapy.Request(result["cn:liveURL"], callback=parse_article)
+                    if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) > self.date:
+                        yield scrapy.Request(result["cn:liveURL"], callback=parse_article)
 
 
 if __name__ == '__main__':

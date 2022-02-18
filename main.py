@@ -5,6 +5,7 @@
 from DataCollection.News.CNBC.Archive import CNBCArchive
 from DataCollection.News.NewYorkTimes.Archive import NYTArchive
 from DataCollection.News.NewYorkTimes.Stream import NYTStreamer
+from DataCollection.News.CNBC.Stream import CNBCStreamer
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Get Archived Data                                                                                                    #
@@ -41,10 +42,16 @@ NYT_Archive = nyt_archiver.get_data(rerun=True)
 # Get LiveData                                                                                                         #
 # -------------------------------------------------------------------------------------------------------------------- #
 #   Get new CNBC-Articles                                                                                              #
+
+cnbc_streamer = CNBCStreamer()
+cnbc_newest_date = cnbc_archiver.get_newest_date()
+new_cnbc_data = cnbc_streamer.get_new_data(date=cnbc_newest_date)
+
 #   Get new NYT-Articles                                                                                               #
 
 nyt_streamer = NYTStreamer()
-new_nyt_data = nyt_streamer.get_new_data(date)
+nyt_newest_date = nyt_archiver.get_newest_date()
+new_nyt_data = nyt_streamer.get_new_data(date=nyt_newest_date)
 
 #   Get new StockData                                                                                                  #
 # If Model isn't up-to-date:
