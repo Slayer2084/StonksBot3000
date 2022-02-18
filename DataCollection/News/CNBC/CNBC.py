@@ -1,14 +1,18 @@
-import datetime
-
-import scrapy
-import scraper_helper as sh
 import re
-from parse_article import parse_article
 import time
 import ciso8601
+import scraper_helper as sh
+import scrapy
+from parse_article import parse_article
 
-url = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}%22%20%22%20&endindex={}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats%7C&facetedvalue=!Press%20Release%7C&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23,3bfbe40caee7443e,626fdfcd96444f28"
-url_stream = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}&endindex={}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats%7C&facetedvalue=!Press%20Release%7C&sort=date&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23,3bfbe40caee7443e,626fdfcd96444f28"
+url = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}%22%20%22%20&endindex={" \
+      "}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats%7C" \
+      "&facetedvalue=!Press%20Release%7C&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23,3bfbe40caee7443e," \
+      "626fdfcd96444f28 "
+url_stream = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}&endindex={" \
+             "}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats" \
+             "%7C&facetedvalue=!Press%20Release%7C&sort=date&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23," \
+             "3bfbe40caee7443e,626fdfcd96444f28 "
 
 
 class CNBCSpider(scrapy.Spider):
@@ -18,7 +22,8 @@ class CNBCSpider(scrapy.Spider):
 
     custom_settings = {
         'LOG_LEVEL': 'WARN',
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1',
+        'USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 '
+                      'Safari/537.1', 
         'ROBOTSTXT_OBEY': False,
         'DOWNLOAD_DELAY': 1
     }
@@ -29,12 +34,10 @@ class CNBCSpider(scrapy.Spider):
         for query in queries:
             yield scrapy.Request(url.format(query, 0), callback=self.parse)
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         metadata = response.json()["metadata"]
         total_pages = metadata["totalpage"]
         current_page = metadata["pagerequested"]
-
-        # print(re.search(r'query=(.*?)%22', response.url).group(1) + ": " + str(current_page))
 
         if total_pages and current_page:
             if int(current_page) == 1:
@@ -59,7 +62,8 @@ class CNBCRecentSpider(scrapy.Spider):
 
     custom_settings = {
         'LOG_LEVEL': 'WARN',
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1',
+        'USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 '
+                      'Safari/537.1',
         'ROBOTSTXT_OBEY': False,
         'PROXY_POOL_ENABLED': True,
         'DOWNLOAD_DELAY': 3
@@ -71,7 +75,7 @@ class CNBCRecentSpider(scrapy.Spider):
         for query in queries:
             yield scrapy.Request(url_stream.format(query, 0), callback=self.parse)
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         current_page = response.json()["metadata"]["pagerequested"]
         last_date = time.mktime(ciso8601.parse_datetime(response.json()["results"][-1]["datePublished"]).timetuple())
 

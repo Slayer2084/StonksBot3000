@@ -1,9 +1,10 @@
 import scrapy
 import scraper_helper as sh
 import datetime
-from Creds import API_KEY
+from DataCollection.News.Creds import API_KEY
 import ciso8601
 import time
+from parse_article import parse_article
 
 
 class NYTArchiveSpider(scrapy.Spider):
@@ -24,19 +25,16 @@ class NYTArchiveSpider(scrapy.Spider):
         for _month in range(1, int(date_now.strftime("%m"))+1):
             yield scrapy.Request(url_api.format(year_now, _month))
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         data = response.json()
         articles = data["response"]["docs"]
         for article in articles:
-            yield scrapy.Request(article["web_url"], callback=self.parse_article)
-
-    def parse_article(self, response):
-        pass
+            yield scrapy.Request(article["web_url"], callback=parse_article)
 
 
 class NYTRecentSpider(scrapy.Spider):
     def __init__(self, date, **kwargs):
-        self.date = time.mktime(ciso8601.parse_datetime(date).timetuple())
+        self.date = date
         super().__init__(**kwargs)
 
     name = 'NYTRecent'
@@ -58,11 +56,7 @@ class NYTRecentSpider(scrapy.Spider):
         else:
             for article in data["results"]:
                 if time.mktime(ciso8601.parse_datetime(article["published_date"]).timetuple()) > self.date:
-                    yield scrapy.Request(article["url"], callback=self.parse_article)
-
-    def parse_article(self, response):
-        print("-")
-        pass
+                    yield scrapy.Request(article["url"], callback=parse_article)
 
 
 if __name__ == '__main__':

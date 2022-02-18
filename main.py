@@ -3,9 +3,9 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 from DataCollection.News.CNBC.Archive import CNBCArchive
-from DataCollection.News.NewYorkTimes.Archive import NYTArchive
+from DataCollection.News.Archive import NYTArchive
 from DataCollection.News.NewYorkTimes.Stream import NYTStreamer
-from DataCollection.News.CNBC.Stream import CNBCStreamer
+from DataCollection.News.Stream import CNBCStreamer
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Get Archived Data                                                                                                    #
