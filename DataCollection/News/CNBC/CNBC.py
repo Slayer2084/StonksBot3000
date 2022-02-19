@@ -3,7 +3,7 @@ import time
 import ciso8601
 import scraper_helper as sh
 import scrapy
-from parse_article import parse_article
+from DataCollection.News.CNBC.parse_article import parse_article
 
 url = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}%22%20%22%20&endindex={" \
       "}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats%7C" \
@@ -15,8 +15,8 @@ url_stream = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab
              "3bfbe40caee7443e,626fdfcd96444f28 "
 
 
-class CNBCSpider(scrapy.Spider):
-    name = 'CNBC'
+class CNBCArchiveSpider(scrapy.Spider):
+    name = 'CNBCArchive'
     allowed_domains = ["api.queryly.com", "cnbc.com"]
     start_urls = []
 

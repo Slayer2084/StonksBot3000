@@ -21,6 +21,6 @@ class Streamer:
 
 
 if __name__ == '__main__':
-    from NewYorkTimes.NYT import NYTRecentSpider
-    nyt_streamer = Streamer(NYTRecentSpider)
-    print(nyt_streamer.get_new_data(100))
+    from CNBC.CNBC import CNBCRecentSpider
+    nyt_streamer = Streamer(CNBCRecentSpider)
+    print(nyt_streamer.get_new_data(1645188211))

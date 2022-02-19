@@ -7,7 +7,7 @@ base = "https://webql-redesign.cnbcfm.com/graphql?operationName=getAssetList&var
 
 class IDs2URLsSpider(scrapy.Spider):
     name = 'IDs2URLs'
-    with open("./ids/ids.txt", "r") as f:
+    with open("ids/ids.txt", "r") as f:
         ids = f.readlines()
     start_urls = []
     for id in ids:

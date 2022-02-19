@@ -32,7 +32,7 @@ class ID_Spider(scrapy.Spider):
                     data = response.json()
                     id = data["data"]["assetList"]["id"]
                     print("- ", id)
-                    with open('./ids/ids.txt', "a") as f:
+                    with open('ids/ids.txt', "a") as f:
                         f.write(str(id) + "\n")
                 else:
                     print(re.search("id%22%3A%22(.*?)%22%2C", response.url).group(1))

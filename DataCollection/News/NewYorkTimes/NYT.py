@@ -4,7 +4,7 @@ import datetime
 from DataCollection.News.Creds import API_KEY
 import ciso8601
 import time
-from parse_article import parse_article
+from DataCollection.News.NewYorkTimes.parse_article import parse_article
 
 
 class NYTArchiveSpider(scrapy.Spider):
