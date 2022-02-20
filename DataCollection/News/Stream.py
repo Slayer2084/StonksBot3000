@@ -8,11 +8,11 @@ class Streamer:
         self.spider = spider
         self.list = []
 
-    def get_new_data(self, date: int):
+    def get_new_data(self, date: float, until_time: float):
         self.list = []
         dispatcher.connect(self.catch_item, signal=signals.item_passed)
         crawler = CrawlerProcess()
-        crawler.crawl(self.spider, date=date)
+        crawler.crawl(self.spider, date=date, until_time=until_time)
         crawler.start()
         return self.list
 

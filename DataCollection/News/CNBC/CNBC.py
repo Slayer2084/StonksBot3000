@@ -28,6 +28,10 @@ class CNBCArchiveSpider(scrapy.Spider):
         'DOWNLOAD_DELAY': 1
     }
 
+    def __init__(self, until_time, **kwargs):
+        self.until_time = until_time
+        super().__init__(**kwargs)
+
     def start_requests(self):
         queries = ['b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
                    'v', 'w', 'x', 'y', 'z']
@@ -46,16 +50,14 @@ class CNBCArchiveSpider(scrapy.Spider):
                                          callback=self.parse)
 
         for result in response.json()["results"]:
+            if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) >= self.until_time:
+                break
             if result["brand"] == "cnbc":
                 if result["cn:type"] != "cnbcvideo":
                     yield scrapy.Request(result["cn:liveURL"], callback=parse_article)
 
 
 class CNBCRecentSpider(scrapy.Spider):
-    def __init__(self, date, **kwargs):
-        self.date = date
-        super().__init__(**kwargs)
-
     name = 'CNBCRecent'
     allowed_domains = ["api.queryly.com", "cnbc.com"]
     start_urls = []
@@ -68,6 +70,11 @@ class CNBCRecentSpider(scrapy.Spider):
         'PROXY_POOL_ENABLED': True,
         'DOWNLOAD_DELAY': 3
     }
+
+    def __init__(self, date, until_time, **kwargs):
+        self.date = date
+        self.until_time = until_time
+        super().__init__(**kwargs)
 
     def start_requests(self):
         queries = ['b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
@@ -86,10 +93,13 @@ class CNBCRecentSpider(scrapy.Spider):
                     callback=self.parse)
 
         for result in response.json()["results"]:
+            if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) <= self.date:
+                break
+            if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) >= self.until_time:
+                break
             if result["brand"] == "cnbc":
                 if result["cn:type"] != "cnbcvideo":
-                    if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) > self.date:
-                        yield scrapy.Request(result["cn:liveURL"], callback=parse_article)
+                    yield scrapy.Request(result["cn:liveURL"], callback=parse_article)
 
 
 if __name__ == '__main__':
