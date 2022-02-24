@@ -2,35 +2,25 @@
 # Imports                                                                                                              #
 # -------------------------------------------------------------------------------------------------------------------- #
 
+import numpy as np
 import time
+from GetArchivedData import get_archived_data
 from DataCollection.News.Archive import Archive
 from DataCollection.News.Stream import Streamer
-from DataCollection.News.CNBC.CNBC import CNBCArchiveSpider, CNBCRecentSpider
+from DataCollection.News.CNBC.CNBC import CNBCSpider
 from DataCollection.News.NewYorkTimes.NYT import NYTArchiveSpider, NYTRecentSpider
 from DataCollection.StockMarket.Archive import StockArchive
 from DataCollection.StockMarket.Streamer import StockStreamer
+from CombineDatasets import combine_subframes
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# Get Archived Data                                                                                                    #
+# Get Archived Data Sync Step 1                                                                                        #
 # -------------------------------------------------------------------------------------------------------------------- #
-archiving_start_time = time.time()
-#   Get CNBCArchive                                                                                                    #
 
-cnbc_archiver = Archive(CNBCArchiveSpider, "/output/cnbc_archive.csv")
-CNBC_Archive = cnbc_archiver.get_data(archiving_start_time)
-
-#   Get NYTArchive                                                                                                     #
-
-nyt_archiver = Archive(NYTArchiveSpider, "/output/nyt_archive.csv")
-NYT_Archive = nyt_archiver.get_data(archiving_start_time)
-
-#   Get ArchivedStockData                                                                                              #
-
-stock_archiver = StockArchive("/output/stock_archive.csv")
-Stock_Archive = stock_archiver.get_data(archiving_start_time)
+archive = get_archived_data()
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# Preprocessing + DataCleaning                                                                                         #
+# Preprocessing and DataCleaning                                                                                       #
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -51,25 +41,31 @@ Stock_Archive = stock_archiver.get_data(archiving_start_time)
 update_start_time = time.time()
 #   Get new CNBC-Articles                                                                                              #
 
-cnbc_streamer = Streamer(CNBCRecentSpider)
-cnbc_newest_date = cnbc_archiver.get_newest_date()
-new_cnbc_data = cnbc_streamer.get_new_data(date=cnbc_newest_date, until_time=update_start_time)
+cnbc_streamer = Streamer(CNBCSpider)
+cnbc_newest_date = CNBC_Archive["Time"].max()
+new_cnbc_data = cnbc_streamer.get_new_data(from_time=cnbc_newest_date, until_time=update_start_time)
 
 #   Get new NYT-Articles                                                                                               #
 
 nyt_streamer = Streamer(NYTRecentSpider)
-nyt_newest_date = nyt_archiver.get_newest_date()
-new_nyt_data = nyt_streamer.get_new_data(date=nyt_newest_date, until_time=update_start_time)
+nyt_newest_date = NYT_Archive["Time"].max()
+new_nyt_data = nyt_streamer.get_new_data(from_time=nyt_newest_date, until_time=update_start_time)
 
 #   Get new StockData                                                                                                  #
 
 stock_streamer = StockStreamer()
-stock_newest_date = stock_archiver.get_newest_date()
-new_stock_data = stock_streamer.get_new_data(date=stock_newest_date, until_time=update_start_time)
+stock_newest_date = Stock_Archive["Time"].max()
+new_stock_data = stock_streamer.get_new_data(from_time=stock_newest_date, until_time=update_start_time)
 
-# If Model isn't up-to-date:
-#   Retrain Model with new Data
-#   add new Data to Archive
+# -------------------------------------------------------------------------------------------------------------------- #
+# Retrain Model with new Data
+# -------------------------------------------------------------------------------------------------------------------- #
+
+model.partial_fit()
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# Add new Data to Archive
+# -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Model makes Prediction [Positive; Neutral; Negative]                                                                 #

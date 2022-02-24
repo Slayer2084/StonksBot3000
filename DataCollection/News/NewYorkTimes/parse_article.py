@@ -7,5 +7,6 @@ def parse_article(response):
         'Content': response.css().get(),
         'Description': response.css().getall(),
         'Time': response.css().get(),
-        'Link': response.url
+        'Link': response.url,
+        'Origin': "NYT",
     }

@@ -8,11 +8,11 @@ class Streamer:
         self.spider = spider
         self.list = []
 
-    def get_new_data(self, date: float, until_time: float):
+    def get_new_data(self, from_time: float, until_time: float):
         self.list = []
         dispatcher.connect(self.catch_item, signal=signals.item_passed)
         crawler = CrawlerProcess()
-        crawler.crawl(self.spider, date=date, until_time=until_time)
+        crawler.crawl(self.spider, from_time=from_time, until_time=until_time)
         crawler.start()
         return self.list
 
@@ -21,6 +21,6 @@ class Streamer:
 
 
 if __name__ == '__main__':
-    from CNBC.CNBC import CNBCRecentSpider
-    nyt_streamer = Streamer(CNBCRecentSpider)
-    print(nyt_streamer.get_new_data(1645188211))
+    from CNBC.CNBC import CNBCSpider
+    nyt_streamer = Streamer(CNBCSpider)
+    print(nyt_streamer.get_new_data(1645475501, 1645562082))

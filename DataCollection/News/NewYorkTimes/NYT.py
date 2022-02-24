@@ -46,8 +46,8 @@ class NYTRecentSpider(scrapy.Spider):
         'DOWNLOAD_DELAY': 6
     }
 
-    def __init__(self, date, until_time, **kwargs):
-        self.date = date
+    def __init__(self, from_time, until_time, **kwargs):
+        self.from_time = from_time
         self.until_time = until_time
         super().__init__(**kwargs)
 
@@ -61,7 +61,7 @@ class NYTRecentSpider(scrapy.Spider):
             yield scrapy.Request(response.url)
         else:
             for article in data["results"]:
-                if time.mktime(ciso8601.parse_datetime(article["published_date"]).timetuple()) <= self.date:
+                if time.mktime(ciso8601.parse_datetime(article["published_date"]).timetuple()) <= self.from_time:
                     break
                 if time.mktime(ciso8601.parse_datetime(article["published_date"]).timetuple()) >= self.until_time:
                     break

@@ -27,24 +27,23 @@ class Archive:
         self.sep = sep
         self.spider = spider
 
-    def get_data(self, until_time: float, rerun=False):
+    def get_data(self, from_time: float, until_time: float, rerun=False):
         if not self.exists:
             rerun = True
             print("Automatically enabling rerun, because passed file doesn't exist.")
         if rerun:
-            data = self._scrape(until_time)
+            data = self._scrape(from_time, until_time)
         else:
             data = pd.read_csv(self.std_file, sep=self.sep)
         return data
 
-    def scrape(self, until_time):
-        data = self._scrape(until_time)
+    def scrape(self, from_time: float, until_time):
+        data = self._scrape(from_time, until_time)
         self._to_csv(data)
 
     def get_newest_date(self):
         df = pd.read_csv(self.std_file, sep=self.sep)
-        df.sort_values("Time", axis=1, descending=False, inplace=True)
-        return df["Time"].tolist()[0]  # Todo: Add conversion to timestamp
+        return df["Time"].max()  # Todo: Add conversion to timestamp
 
     def add_to_archive(self, data: list):
         df = pd.read_csv(self.std_file, sep=self.sep)
@@ -54,10 +53,10 @@ class Archive:
     def _catch_item(self, sender, item, **kwargs):
         self.list.append(item)
 
-    def _scrape(self, until_time):
+    def _scrape(self, from_time, until_time):
         dispatcher.connect(self._catch_item, signal=signals.item_passed)
         crawler = CrawlerProcess()
-        crawler.crawl(self.spider, until_time)
+        crawler.crawl(self.spider, from_time, until_time)
         crawler.start()
         return pd.DataFrame(self.list)
 
