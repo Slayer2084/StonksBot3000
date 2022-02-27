@@ -13,8 +13,7 @@ from alpaca_trade_api.rest import TimeFrame, URL, TimeFrameUnit
 import alpaca_trade_api as tradeapi
 
 
-def get_archived_data():
-    archiving_min_time = 946684800
+def get_stream_data(archiving_min_time):
     archiving_max_time = time.time()
     news_list = []
     stocks_list = []
@@ -60,4 +59,4 @@ def get_archived_data():
 
 
 if __name__ == "__main__":
-    print(get_archived_data())
+    print(get_stream_data(0))

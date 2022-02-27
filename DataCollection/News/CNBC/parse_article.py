@@ -8,6 +8,7 @@ def parse_article(response):
         'Content': content,
         'Description': response.css("#RegularArticle-KeyPoints-4 li").css("::text").getall(),
         'Time': response.css(".ArticleHeader-timeHidden > time").css('::attr(datetime)').get(),
+        'Section': response.css(".ArticleHeader-eyebrow").css("::text").get(),
         'Link': response.url,
         'Origin': "CNBC",
     }

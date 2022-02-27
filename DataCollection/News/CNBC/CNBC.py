@@ -20,7 +20,8 @@ class CNBCSpider(scrapy.Spider):
         'USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 '
                       'Safari/537.1',
         'ROBOTSTXT_OBEY': False,
-        'DOWNLOAD_DELAY': 0.5
+        'DOWNLOAD_DELAY': 0.5,
+        'JOBDIR': './job',
     }
 
     def __init__(self, from_time, until_time, **kwargs):
@@ -35,6 +36,7 @@ class CNBCSpider(scrapy.Spider):
             yield scrapy.Request(url_stream.format(query, 0), callback=self.parse, cb_kwargs=dict(query=query))
 
     def parse(self, response, query, **kwargs):
+        print(query)
         data = response.json()
         metadata = data["metadata"]
         total_pages = metadata["totalpage"]
@@ -46,7 +48,8 @@ class CNBCSpider(scrapy.Spider):
                 if last_date > self.from_time:
                     yield scrapy.Request(
                         url=url_stream.format(query, (current_page+1) * 100),
-                        callback=self.parse)
+                        callback=self.parse,
+                        cb_kwargs=dict(query=query))
 
         for result in data["results"]:
             if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) <= self.from_time:

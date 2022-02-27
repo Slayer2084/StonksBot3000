@@ -67,5 +67,5 @@ class Archive:
 if __name__ == '__main__':
     from NewYorkTimes.NYT import NYTArchiveSpider
 
-    nyt_archiver = Archive(NYTArchiveSpider, "/output/nyt_archive.csv")
+    nyt_archiver = Archive(NYTArchiveSpider, "../output/nyt_archive.csv")
     nyt_archiver.get_data()
