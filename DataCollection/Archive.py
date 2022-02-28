@@ -26,10 +26,10 @@ class Archive:
     def update_archive(self):
         min_time = self.get_max_date()
         max_time = time.time()
-        news, stock = self._scrape_data(min_time, max_time)
+        news, stock = self._scrape_data(min_time=min_time, max_time=max_time)
         new_df = combine_subframes(news, stock)
         df = pd.read_csv(filepath_or_buffer=self.path, sep=self.sep, index_col=self.index_col)
-        return pd.concat(df, new_df)
+        self._create_csv(pd.concat(df, new_df), self.path)
 
     def get_subframes(self):
         if not os.path.exists(self.news_path) and not os.path.exists(self.stock_path):
@@ -51,15 +51,16 @@ class Archive:
     def get_min_date(self):
         return self.get_df()["Time"].min(axis=1)
 
-    def _create_csv(self, df: pd.Dataframe, path: str):
+    def _create_csv(self, df, path: str):
         df.to_csv(path_or_buf=path, sep=self.sep, index_label=self.index_col)
 
-    def _scrape_data(self, min_time, max_time):
+    @staticmethod
+    def _scrape_data(min_time, max_time):
         news_list = []
         stocks_list = []
         base_url = "https://paper-api.alpaca.markets"
 
-        def catch_item(sender, item, **kwargs):
+        def catch_item(item):
             news_list.append(item)
 
         async def get_news():
@@ -83,14 +84,19 @@ class Archive:
                     ref_symbols.append(symbol)
             stepsize = 1000
             for i in range(0, len(symbols), stepsize):
-                tasks = []
+                jobs = []
                 for symbol in symbols[i:i + stepsize]:
                     args = [symbol, min_time, max_time, TimeFrame(1, TimeFrameUnit.Minute).value]
-                    tasks.append(rest.get_bars_async(*args))
-                stocks_list.extend(await asyncio.gather(*tasks, return_exceptions=True))
+                    jobs.append(rest.get_bars_async(*args))
+                stocks_list.extend(await asyncio.gather(*jobs, return_exceptions=True))
 
         tasks = asyncio.gather(get_news(), get_stocks())
         asyncio.get_event_loop().run_until_complete(tasks)
         news_df = pd.DataFrame(news_list)
         stocks_df = pd.DataFrame(stocks_list)
         return news_df, stocks_df
+
+
+if __name__ == '__main__':
+    archive = Archive()
+    print(archive.get_df())
