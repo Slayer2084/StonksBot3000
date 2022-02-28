@@ -1,11 +1,9 @@
-import time
 import asyncio
 import pandas as pd
 from scrapy.signalmanager import dispatcher
 from scrapy.crawler import CrawlerProcess
 from DataCollection.News.CNBC.CNBC import CNBCSpider
 from scrapy import signals
-from CombineDatasets import combine_subframes
 from DataCollection.News.NewYorkTimes.NYT import NYTArchiveSpider
 from DataCollection.StockMarket.alpaca_creds import API_KEY, API_SECRET
 from alpaca_trade_api.rest_async import AsyncRest
@@ -13,9 +11,7 @@ from alpaca_trade_api.rest import TimeFrame, URL, TimeFrameUnit
 import alpaca_trade_api as tradeapi
 
 
-def get_archived_data():
-    archiving_min_time = 946684800
-    archiving_max_time = time.time()
+def get_archived_data(min_time, max_time):
     news_list = []
     stocks_list = []
     base_url = "https://paper-api.alpaca.markets"
@@ -26,8 +22,8 @@ def get_archived_data():
     async def get_news():
         dispatcher.connect(catch_item, signal=signals.item_passed)
         process = CrawlerProcess()
-        process.crawl(CNBCSpider, from_time=archiving_min_time, until_time=archiving_max_time)
-        process.crawl(NYTArchiveSpider, from_time=archiving_min_time, until_time=archiving_max_time)
+        process.crawl(CNBCSpider, from_time=min_time, until_time=max_time)
+        process.crawl(NYTArchiveSpider, from_time=min_time, until_time=max_time)
         await process.start()
 
     async def get_stocks():
@@ -46,7 +42,7 @@ def get_archived_data():
         for i in range(0, len(symbols), stepsize):
             tasks = []
             for symbol in symbols[i:i + stepsize]:
-                args = [symbol, archiving_min_time, archiving_max_time, TimeFrame(1, TimeFrameUnit.Minute).value]
+                args = [symbol, min_time, max_time, TimeFrame(1, TimeFrameUnit.Minute).value]
                 tasks.append(rest.get_bars_async(*args))
             stocks_list.extend(await asyncio.gather(*tasks, return_exceptions=True))
 
@@ -54,9 +50,7 @@ def get_archived_data():
     asyncio.get_event_loop().run_until_complete(tasks)
     news_df = pd.DataFrame(news_list)
     stocks_df = pd.DataFrame(stocks_list)
-    df = combine_subframes(news_df, stocks_df)
-    df.to_csv(path_or_buf="DataCollection/output/df.csv", sep=";")
-    return df
+    return news_df, stocks_df
 
 
 if __name__ == "__main__":
