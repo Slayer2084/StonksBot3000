@@ -7,7 +7,7 @@ from scrapy.signalmanager import dispatcher
 from scrapy.crawler import CrawlerProcess
 from DataCollection.News.CNBC.CNBC import CNBCSpider
 from scrapy import signals
-from DataCollection.News.NewYorkTimes.NYT import NYTArchiveSpider
+from DataCollection.News.NewYorkTimes.NYT import NYTSpider
 from DataCollection.StockMarket.alpaca_creds import API_KEY, API_SECRET
 from alpaca_trade_api.rest_async import AsyncRest
 from alpaca_trade_api.rest import TimeFrame, URL, TimeFrameUnit
@@ -23,7 +23,7 @@ class Archive:
         self.index_col = "index"
         self.min_time = 946684800
 
-    def update_archive(self):
+    def update(self):
         min_time = self.get_max_date()
         max_time = time.time()
         news, stock = self._scrape_data(min_time=min_time, max_time=max_time)
@@ -67,7 +67,7 @@ class Archive:
             dispatcher.connect(catch_item, signal=signals.item_passed)
             process = CrawlerProcess()
             process.crawl(CNBCSpider, from_time=min_time, until_time=max_time)
-            process.crawl(NYTArchiveSpider, from_time=min_time, until_time=max_time)
+            process.crawl(NYTSpider, from_time=min_time, until_time=max_time)
             await process.start()
 
         async def get_stocks():

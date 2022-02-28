@@ -4,14 +4,14 @@
 
 import numpy as np
 import time
-from GetArchivedData import get_archived_data
-from StreamNewData import get_stream_data
+from DataCollection.Archive import Archive
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Get Archived Data                                                                                                    #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-archive = get_archived_data()
+archive = Archive()
+news_df, stocks_df = archive.get_df()
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Preprocessing and DataCleaning                                                                                       #
@@ -36,8 +36,8 @@ archive = get_archived_data()
 # -------------------------------------------------------------------------------------------------------------------- #
 # Get LiveData                                                                                                         #
 # -------------------------------------------------------------------------------------------------------------------- #
-newest_timestamp = archive["Time"].max()
-new_data = get_stream_data(newest_timestamp)
+
+archive.update()
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Retrain Model with new Data
