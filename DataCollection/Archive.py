@@ -21,7 +21,7 @@ class Archive:
         self.news_path = "./news.csv"
         self.stock_path = "./stock.csv"
         self.index_col = "index"
-        self.min_time = 946684800
+        self.min_time = 943920000
 
     def update(self):
         min_time = self.get_max_date()

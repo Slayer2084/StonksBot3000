@@ -4,10 +4,8 @@ import scraper_helper as sh
 import scrapy
 from DataCollection.News.CNBC.parse_article import parse_article
 
-url_stream = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query={}&endindex={" \
-             "}&batchsize=100&callback=&showfaceted=false&timezoneoffset=-60&facetedfields=formats&facetedkey=formats" \
-             "%7C&facetedvalue=!Press%20Release%7C&sort=date&additionalindexes=4cd6f71fbf22424d,937d600b0d0d4e23," \
-             "3bfbe40caee7443e,626fdfcd96444f28"
+url_stream = "https://api.queryly.com/cnbc/json.aspx?queryly_key=31a35d40a9a64ab3&query=cnbc&endindex={" \
+             "}&batchsize=100&timezoneoffset=-60&sort=date "
 
 
 class CNBCSpider(scrapy.Spider):
@@ -30,26 +28,22 @@ class CNBCSpider(scrapy.Spider):
         super().__init__(**kwargs)
 
     def start_requests(self):
-        queries = ['b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-                   'v', 'w', 'x', 'y', 'z']
-        for query in queries:
-            yield scrapy.Request(url_stream.format(query, 0), callback=self.parse, cb_kwargs=dict(query=query))
+        yield scrapy.Request(url_stream.format(0), callback=self.parse)
 
-    def parse(self, response, query, **kwargs):
-        print(query)
+    def parse(self, response, **kwargs):
         data = response.json()
         metadata = data["metadata"]
         total_pages = metadata["totalpage"]
         current_page = metadata["pagerequested"]
+        print(current_page)
         last_date = time.mktime(ciso8601.parse_datetime(data["results"][-1]["datePublished"]).timetuple())
 
         if current_page:
             if current_page <= total_pages:
                 if last_date > self.from_time:
                     yield scrapy.Request(
-                        url=url_stream.format(query, (current_page+1) * 100),
-                        callback=self.parse,
-                        cb_kwargs=dict(query=query))
+                        url=url_stream.format((current_page+1) * 100),
+                        callback=self.parse)
 
         for result in data["results"]:
             if time.mktime(ciso8601.parse_datetime(result["datePublished"]).timetuple()) <= self.from_time:
@@ -62,4 +56,14 @@ class CNBCSpider(scrapy.Spider):
 
 
 if __name__ == '__main__':
-    sh.run_spider(CNBCSpider)
+    from scrapy.signalmanager import dispatcher
+    from scrapy.crawler import CrawlerProcess
+    from scrapy import signals
+
+    def catch_item(item):
+        pass
+
+    dispatcher.connect(catch_item, signal=signals.item_passed)
+    process = CrawlerProcess()
+    process.crawl(CNBCSpider, from_time=943920000, until_time=946598400)
+    process.start()
