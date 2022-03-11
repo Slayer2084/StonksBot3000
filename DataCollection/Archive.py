@@ -23,7 +23,7 @@ class Archive:
         self.index_col = "index"
         self.min_time = 943920000
 
-    def update(self):
+    def update(self, article):
         min_time = self.get_max_date()
         max_time = time.time()
         news, stock = self._scrape_data(min_time=min_time, max_time=max_time)

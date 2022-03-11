@@ -42,7 +42,7 @@ class NYTSpider(scrapy.Spider):
             for _month in range(1, month_max + 1):
                 yield scrapy.Request(url_api.format(year_max, _month))
         else:
-            url_api = "https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=" + API_KEY + "&limit=500"
+            url_api = "https://api.nytimes.com/svc/news/v3/content/all/world.json?api-key=" + API_KEY + "&limit=500"
             yield scrapy.Request(url_api, callback=self.parse)
 
     def parse(self, response, **kwargs):
