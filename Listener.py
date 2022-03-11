@@ -1,7 +1,7 @@
 import requests
-import time
 from DataCollection.News.Creds import API_KEY
 import asyncio
+from typing import Callable
 
 
 class NewsListener:
@@ -18,23 +18,23 @@ class NewsListener:
         self.last_cnbc_id = self._get_latest_cnbc_id()
         self.last_nyt_id = self._get_latest_nyt_id()
 
-    def _request_cnbc_api(self):
+    def _request_cnbc_api(self) -> dict:
         return requests.get(url=self.cnbc_url, headers=self.headers).json()
 
     @staticmethod
-    def _get_latest_cnbc_arcticle(response):
+    def _get_latest_cnbc_arcticle(response: dict) -> dict:
         return response["results"][0]
 
-    def _get_latest_cnbc_id(self):
+    def _get_latest_cnbc_id(self) -> int:
         response = self._request_cnbc_api()
         return self._get_latest_cnbc_arcticle(response=response)["@id"]
 
     @staticmethod
-    def _parse_cnbc(url):
+    def _parse_cnbc(url: str) -> dict:
         print(url)
         return {}
 
-    async def _cnbc_new_event(self):
+    async def _cnbc_new_event(self) -> None:
         while 1:
             cnbc_api_latest_article = self._get_latest_cnbc_arcticle(self._request_cnbc_api())
             cnbc_latest_id = cnbc_api_latest_article["@id"]
@@ -43,23 +43,23 @@ class NewsListener:
                 await self.callback(self._parse_cnbc(cnbc_api_latest_article["cn:liveURL"]))
             await asyncio.sleep(1)
 
-    def _request_nyt_api(self):
+    def _request_nyt_api(self) -> dict:
         return requests.get(url=self.nyt_url, headers=self.headers).json()
 
     @staticmethod
-    def _get_latest_nyt_arcticle(response):
+    def _get_latest_nyt_arcticle(response: dict) -> dict:
         return response["results"][0]
 
-    def _get_latest_nyt_id(self):
+    def _get_latest_nyt_id(self) -> str:
         response = self._request_nyt_api()
         return self._get_latest_nyt_arcticle(response=response)["slug_name"]
 
     @staticmethod
-    def _parse_nyt(url):
+    def _parse_nyt(url) -> dict:
         print(url)
         return {}
 
-    async def _nyt_new_event(self):
+    async def _nyt_new_event(self) -> None:
         while 1:
             try:
                 nyt_api_latest_article = self._get_latest_nyt_arcticle(self._request_nyt_api())
@@ -71,8 +71,8 @@ class NewsListener:
                 print(e)
             await asyncio.sleep(6)
 
-    def listen_for_new_event(self, callback):
-        self.callback = callback
+    def listen_for_new_event(self, callback_func: Callable[[dict], None]) -> None:
+        self.callback = callback_func
         tasks = asyncio.gather(self._cnbc_new_event(), self._nyt_new_event())
         self.loop.run_until_complete(tasks)
 

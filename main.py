@@ -136,4 +136,4 @@ def on_event(article: dict) -> None:
     # TODO: add on_event functionality
     pass
 
-listener.listen_for_new_event(callback=on_event)
+listener.listen_for_new_event(callback_func=on_event)
